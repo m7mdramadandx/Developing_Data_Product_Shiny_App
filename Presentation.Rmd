@@ -1,0 +1,39 @@
+---
+title: "mpg prediction for your car"
+author: "Muhammad Ramadan"
+date: "23/02/2020"
+output: ioslides_presentation
+---
+
+## Context
+
+We show the relationship of the miles per galon with he weight and cylinder of the car.
+
+## Data
+
+The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models).
+
+```{r data, include=FALSE}
+library(ggplot2)
+library(plotly)
+library(RColorBrewer)
+library(corrplot)
+
+data(mtcars)
+```
+
+## Why we chose those factors
+
+We made a correlation matrix with all the factor and took the ones who have high correlation to the mpg factor. 
+
+```{r corratrix, echo=FALSE}
+carCorr <- cor(mtcars[sapply(mtcars,is.numeric)])
+corrplot(carCorr, method="number", order="hclust", col=brewer.pal(n=8, name="RdYlBu"))
+```
+
+
+## The plot
+
+```{r plot, echo=FALSE}
+plot_ly(mtcars, x = ~mpg, y = ~wt, color = ~cyl, type = "scatter", mode = "markers")
+``` 
